@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jupiter-crew-svc
+  name: jupiter-crew-deploy
+  namespace: jupiter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jupiter-crew-svc
+  template:
+    metadata:
+      labels:
+        app: jupiter-crew-svc
+    spec:
+      containers:
+        - image: httpd:latest
+          name: apache
+          ports:
+            - containerPort: 80

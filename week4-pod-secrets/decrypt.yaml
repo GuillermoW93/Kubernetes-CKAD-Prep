@@ -1,0 +1,1 @@
+k get secrets secret1 -n moon -o=jsonpath={.data.user} | base64 -d

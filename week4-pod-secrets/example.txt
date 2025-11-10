@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: lab-reader-token
+  namespace: k8s-lab
+  annotations:
+    kubernetes.io/service-account.name: lab-reader
+type: kubernetes.io/service-account-token
+
+kubectl apply -f legacy-token-secret.yaml
+
+kubectl get secret lab-reader-token -n k8s-lab -o jsonpath='{.data.token}' | base64 --decode > lab-reader.token

@@ -1,0 +1,1 @@
+k -n moon exec secret-handler -- env | grep -i SECRET

@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-init-container
+  namespace: mars
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-init-container
+  template:
+    metadata:
+      labels:
+        app: test-init-container
+    spec:
+      containers:
+      - image: nginx:1.17.3
+        name: nginx

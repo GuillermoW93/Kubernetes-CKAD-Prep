@@ -1,0 +1,1 @@
+k -n moon create configmap configmap-web-moon-html --from-file=index.html=web-moon.html

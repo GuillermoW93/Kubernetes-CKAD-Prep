@@ -1,0 +1,3 @@
+k rollout undo deployment/api-new-c32 -n neptune
+k rollout history deployment api-new-c32 -n neptune
+k edit deployment -n neptune api-new-c32

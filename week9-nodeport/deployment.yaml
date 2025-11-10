@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jupiter-crew-deploy
+  name: jupiter-crew-deploy
+  namespace: jupiter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jupiter-crew-deploy
+  template:
+    metadata:
+      labels:
+        app: jupiter-crew-deploy
+    spec:
+      containers:
+      - image: apache
+        name: apache

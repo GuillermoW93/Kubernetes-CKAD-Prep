@@ -1,0 +1,1 @@
+k exec -it -n moon pod/web-moon -- cat /usr/share/nginx/html/index.html

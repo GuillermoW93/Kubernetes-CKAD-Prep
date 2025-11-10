@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  namespace: mars
+  labels:
+    app: manager-api-svc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: manager-api-svc
+  template:
+    metadata:
+      labels:
+        app: manager-api-svc
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+

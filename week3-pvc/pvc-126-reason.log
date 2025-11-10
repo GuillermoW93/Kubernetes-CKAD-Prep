@@ -1,0 +1,2 @@
+#Result of "kubectl describe pvc -n moon"
+Waiting for a volume to be created either by the external provisioner moon-retainer or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.

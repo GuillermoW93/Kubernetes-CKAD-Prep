@@ -1,0 +1,5 @@
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm show repo bitnami
+helm install wordpress bitnami/wordpress --version[x]
+helm history wordpress
+helm list

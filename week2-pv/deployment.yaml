@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: project-earthflower
+  namespace: earth
+spec:
+  volumes:
+    - name: earth-project-earthflower-pv
+      persistentVolumeClaim:
+        claimName: earth-project-earthflower-pvc
+  containers:
+    - name: earth-flower
+      image: httpd:2.4.41-alpine
+      volumeMounts:
+        - mountPath: "/tmp/project-data"
+          name: earth-project-earthflower-pv

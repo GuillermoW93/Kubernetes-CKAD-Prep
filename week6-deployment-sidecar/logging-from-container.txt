@@ -1,0 +1,1 @@
+k logs -n mercury cleaner-con-7667fd986c-2qj8q -c logger-con

@@ -1,0 +1,1 @@
+k -n venus run tmp --image=busybox --restart=Never --rm -i -- wget -0- frontend:80

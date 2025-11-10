@@ -1,0 +1,1 @@
+k -n venus run tmp --image=busybox --restart=Never --rm -i -- sh (nc api:2222)

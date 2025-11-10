@@ -1,0 +1,1 @@
+k run tmp --image=nginx:alpine --restart=Never --rm -i -- curl -m 3 10.43.137.51:4444
