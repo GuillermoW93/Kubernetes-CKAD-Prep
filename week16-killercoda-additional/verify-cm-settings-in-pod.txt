@@ -1,0 +1,5 @@
+kubectl exec -it redis-pod -- redis-cli
+
+CONFIG GET maxmemory
+
+CONFIG GET maxmemory-policy

@@ -1,0 +1,1 @@
+k top pod [pod_name] --containers --sort-by=memory

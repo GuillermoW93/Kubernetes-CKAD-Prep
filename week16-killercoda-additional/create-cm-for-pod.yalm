@@ -1,0 +1,1 @@
+k create cm redis-config --from-literal=maxmemory=2mb --from-literal=maxmemory-policy=allkeys-lru
