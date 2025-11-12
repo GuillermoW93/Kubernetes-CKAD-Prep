@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: runner-pod
+  namespace: sun
+  labels:
+    type: runner
+spec:
+  containers:
+    - name: runner-container
+      image: busybox
+      command: ["sh", "-c", "echo Hello from the runner pod && sleep 3600"]
