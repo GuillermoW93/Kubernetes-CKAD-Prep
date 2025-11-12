@@ -1,0 +1,1 @@
+kubectl get pods -n sun -o yaml | grep -A3 annotations

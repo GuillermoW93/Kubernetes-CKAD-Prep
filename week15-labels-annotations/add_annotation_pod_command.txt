@@ -1,0 +1,1 @@
+kubectl annotate pods -n sun -l protected=true protected='do not delete this pod'

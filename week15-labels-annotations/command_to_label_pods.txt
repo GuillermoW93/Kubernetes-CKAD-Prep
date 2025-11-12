@@ -1,0 +1,1 @@
+kubectl label pods -n sun -l 'type in (runner,worker)' protected=true
