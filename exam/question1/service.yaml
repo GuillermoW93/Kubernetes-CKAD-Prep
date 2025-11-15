@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: berry
+  name: berry
+  namespace: nov2025
+spec:
+  ports:
+  - name: 80-8080
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: berry
+    func: webFrontend
+  type: NodePort
+status:
+  loadBalancer: {}

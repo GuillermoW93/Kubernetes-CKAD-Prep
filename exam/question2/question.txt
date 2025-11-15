@@ -1,0 +1,5 @@
+Task:
+Please complete the following:
+- Update the 'app' deployment in the nov2025 namespace with 'MaxSurge of 5%' and 'MaxUnavailable' of 2%.
+- Perform a rolling update of the web1 deployment change the repo/nginx image version to 1.13
+- Rollback the app deployment to the previous version.

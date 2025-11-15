@@ -1,0 +1,5 @@
+k set image deployment/web1 nginx=nginx:1.13 -n nov2025
+k rollout history deployment/web1 -n nov2025
+k rollout status deployment/web1 -n nov2025
+k rollout undo deployment/web1 -n nov2025
+k get deployment web1 -n nov2025 -o jsonpath={.spec.template.spec.containers[*].image}

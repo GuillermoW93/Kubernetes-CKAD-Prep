@@ -1,0 +1,2 @@
+kubectl label node controlplane availability-zone=zone1 --overwrite
+kubectl label node node01 availability-zone=zone2 --overwrite

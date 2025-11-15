@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nov2025-deployment
+  name: nov2025-deployment
+  namespace: nov2025
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nov2025-deployment
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: nov2025-deployment
+    spec:
+      containers:
+      - image: httpd:alpine
+        name: httpd
