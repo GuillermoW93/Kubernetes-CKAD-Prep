@@ -1,0 +1,19 @@
+Create a pod named limited in the session283884 namespace that has CPU request 100m and limit 200m , memory request 64Mi and limit 128Mi .
+
+apiVersion: v1
+  2 kind: Pod
+  3 metadata:
+  4   name: limited
+  5   namespace: session283884
+  6 spec:
+  7  containers:
+  8   - name: limited-pod
+  9     image: busybox
+ 10     command: ["sleep", "3600"]
+ 11     resources:
+ 12       limits:
+ 13         cpu: "200m"
+ 14         memory: "128Mi"
+ 15       requests:
+ 16         cpu: "100m"
+ 17         memory: "64Mi"

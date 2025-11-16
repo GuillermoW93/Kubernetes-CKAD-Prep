@@ -1,0 +1,51 @@
+Create a Secret in the session283884 namespace named app-secret with key password=pass123 , and mount it as a volume in a pod.
+
+kubectl -n session283884 create secret generic app-secret --from-literal=password=pass123
+
+Verify the contents of the secret (encoded)
+
+kubectl get secret app-secret -n session283884 -o json                                 
+{
+    "apiVersion": "v1",
+    "data": {
+        "password": "cGFzczEyMw=="
+    },
+    "kind": "Secret",
+    "metadata": {
+        "creationTimestamp": "2025-11-16T11:09:20Z",
+        "name": "app-secret",
+        "namespace": "session283884",
+        "resourceVersion": "7816",
+        "uid": "852ab30e-ca10-42a4-8a4c-4ecb418ec94d"
+    },
+    "type": "Opaque"
+}
+
+
+Decode the secret to reveal the password :) 
+
+kubectl get secret app-secret -n session283884 -o jsonpath={.data.password} | base64 -d
+pass123
+
+
+Let's now add the secret to be used for the pod
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secret-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: nginx
+      volumeMounts:
+        # name must match the volume name below
+        - name: secret-volume
+          mountPath: /etc/secret-volume
+          readOnly: true
+  # The secret data is exposed to Containers in the Pod through a Volume.
+  volumes:
+    - name: secret-volume
+      secret:
+        secretName: test-secret
+

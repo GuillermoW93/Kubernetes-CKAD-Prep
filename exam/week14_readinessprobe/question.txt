@@ -1,0 +1,19 @@
+Create a pod named nginx-ready in the session283884 namespace using image nginx , and configure an HTTP readiness probe on port 80 with path / .
+
+apiVersion: v1
+  2 kind: Pod
+  3 metadata:
+  4   name: nginx-ready
+  5   namespace: session283884
+  6 spec:
+  7   containers:
+  8   - name: nginx
+  9     image: nginx
+ 10     ports: 
+ 11     - containerPort: 80
+ 12     readinessProbe:
+ 13       httpGet:
+ 14         path: /
+ 15         port: 80
+ 16       initialDelaySeconds: 15
+ 17       periodSeconds: 10

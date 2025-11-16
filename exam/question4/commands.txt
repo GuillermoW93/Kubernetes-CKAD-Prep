@@ -1,0 +1,9 @@
+controlplane:~$ k create ns session283884
+namespace/session283884 created
+controlplane:~$ k create deployment -n session283884 web --image=nginx:1.17
+deployment.apps/web created
+controlplane:~$ k expose deployment web -n session283884 --port=80 --target-port=80 --type=ClusterIP
+service/web exposed
+controlplane:~$ k get svc -n session283884
+NAME   TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+web    ClusterIP   10.104.178.251   <none>        80/TCP    4s

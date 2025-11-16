@@ -1,0 +1,15 @@
+controlplane:~$ k get all -n session283884
+NAME                           READY   STATUS              RESTARTS   AGE
+pod/demo-app-7c4bc5974-8vk6p   0/1     ContainerCreating   0          13s
+pod/demo-app-7c4bc5974-b6l95   0/1     ContainerCreating   0          13s
+pod/demo-app-7c4bc5974-srj4v   0/1     ContainerCreating   0          13s
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/demo-app   0/3     3            0           13s
+
+NAME                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/demo-app-7c4bc5974   3         3         0       13s
+controlplane:~$ k delete pods -n session283884 --all
+pod demo-app-7c4bc5974-8vk6p deleted from session283884 namespace
+pod demo-app-7c4bc5974-b6l95 deleted from session283884 namespace
+pod demo-app-7c4bc5974-srj4v deleted from session283884 namespace

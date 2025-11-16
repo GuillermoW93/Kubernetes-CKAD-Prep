@@ -1,0 +1,24 @@
+Create a ConfigMap named env-config with ENV=production and use it as environment variables in a pod.
+
+k create configmap env-config --from-literal=ENV=production
+
+Create a pod using the configmap: 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: registry.k8s.io/busybox:1.27.2
+      command: [ "/bin/sh", "-c", "env" ]
+      envFrom:
+      - configMapRef:
+          name: special-config
+  restartPolicy: Never
+
+Verify that the pod uses the env :)
+
+k logs dapi-test-pod | grep ENV
+ENV=production

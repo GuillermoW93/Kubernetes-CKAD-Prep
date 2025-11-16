@@ -1,0 +1,3 @@
+kubectl -n session283884 create job oneshot --image=busybox -- /bin/sh -c 'echo Hello CKAD'
+
+This is a job that runs once

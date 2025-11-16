@@ -1,0 +1,6 @@
+If you want to use 'jsonPath' for multiple pods (for example) you use: 
+-  k get pods -n session283884 -o jsonpath={.items[*].spec.nodeName}
+
+Look at the beginning it says: ".items[*]" that means for all items, check the .spec.nodeName
+
+if you look at it from a single pod, you can use jsonpath={.spec.nodeName}

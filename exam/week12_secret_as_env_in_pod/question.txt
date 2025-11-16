@@ -1,0 +1,78 @@
+Create a Secret in the session283884 namespace named db-secret with a username and password and use it as env vars in a pod.
+
+let's first create the username/password secret
+
+kubectl -n session283884 create secret generic db-secret \
+  --from-literal=username=admin \
+  --from-literal=password=secret123
+
+lets verify
+
+controlplane:~$ k describe secret -n session283884
+Name:         db-secret
+Namespace:    session283884
+Labels:       <none>
+Annotations:  <none>
+
+Type:  Opaque
+
+Data
+====
+password:  9 bytes
+username:  5 bytes
+
+k get secret -n session283884 -o json
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "v1",
+            "data": {
+                "password": "c2VjcmV0MTIz",
+                "username": "YWRtaW4="
+            },
+            "kind": "Secret",
+            "metadata": {
+                "creationTimestamp": "2025-11-16T11:19:55Z",
+                "name": "db-secret",
+                "namespace": "session283884",
+                "resourceVersion": "8216",
+                "uid": "7ddffb07-7462-4779-861b-70aa6506665c"
+            },
+            "type": "Opaque"
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}
+
+k get secret -n session283884 -o jsonpath={.items[].data.password} | base64 -d
+secret123
+
+k get secret -n session283884 -o jsonpath={.items[].data.username} | base64 -d
+admin
+
+Let's create the pod using the template:
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-single-secret
+spec:
+  containers:
+  - name: envars-test-container
+    image: nginx
+    env:
+    - name: SECRET_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: backend-user
+          key: backend-username
+
+Verify the env in pod:
+
+k logs -n session283884 env-single-secret | grep SECRET
+SECRET_USERNAME=admin
+SECRET_PASSWORD=secret123
