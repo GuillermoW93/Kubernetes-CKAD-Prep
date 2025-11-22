@@ -1,0 +1,1 @@
+k expose pods/web -n web --port=80 --cluster-ip=None --dry-run=client -o yaml > headless.yaml

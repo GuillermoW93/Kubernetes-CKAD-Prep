@@ -1,0 +1,30 @@
+
+
+
+apiVersion: v1
+kind: Pod 
+metadata: 
+  name: configpod
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command: ["sleep", "3600"]
+    volumeMounts:
+    - name: config
+      mountPath: /etc/config
+  volumes:
+  - name: config
+    configMap:
+      name: app-config
+
+kubectl create configmap app-config --from-literal=version=2.0 -o yaml --dry-run=client | kubectl 
+apply -f -
+
+k exec -it configpod -- sh
+/ # cat /etc/config/version
+1.0/ # exit
+
+k exec -it configpod -- sh
+/ # cat /etc/config/version
+2.0/ # 

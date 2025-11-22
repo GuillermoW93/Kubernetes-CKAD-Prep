@@ -1,0 +1,9 @@
+Create a namespace named ingress-host-routing .
+
+Create a deployment named web with the image nginx:1.25 exposing port 80 from the container.
+
+Expose the deployment, creating a ClusterIP type service, also on port 80 .
+
+Create an Ingress named web-ingress that routes web.example.com to a service named web .
+
+Check if ingress returns a 200 response.

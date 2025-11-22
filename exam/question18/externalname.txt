@@ -1,0 +1,7 @@
+Expose an external hostname through Kubernetes without creating endpoints.
+
+What to do
+Create a namespace named externalname-demo .
+Define a Service named external-search in that namespace with type: ExternalName pointing to www.google.com .
+Start a BusyBox pod called dns-tool in the same namespace that sleeps so you can exec into it.
+From the dns-tool pod, resolve external-search.externalname-demo.svc.cluster.local and confirm it returns www.google.com .

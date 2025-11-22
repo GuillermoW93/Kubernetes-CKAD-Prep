@@ -1,0 +1,24 @@
+k create ns ingress-host-routing 
+namespace/ingress-host-routing created
+
+k create deployment web --image=nginx:1.25 --port=80 --namespace=ingress-host-routing 
+deployment.apps/web created
+
+k -n ingress-host-routing expose deployment/web --port=80 --target-port=80 --type=ClusterIP service/web exposed
+
+k get svc -n ingress-host-routing 
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE web ClusterIP 10.102.95.104 <none> 80/TCP 2s
+
+kubectl get ingressclasses
+NAME    CONTROLLER             PARAMETERS   AGE
+nginx   k8s.io/ingress-nginx   <none>       5m58s
+
+curl -I -H 'Host: web.example.com' http://172.30.1.2:30000/
+HTTP/1.1 200 OK
+Date: Sat, 22 Nov 2025 17:19:12 GMT
+Content-Type: text/html
+Content-Length: 615
+Connection: keep-alive
+Last-Modified: Tue, 16 Apr 2024 14:29:59 GMT
+ETag: "661e8b67-267"
+Accept-Ranges: bytes

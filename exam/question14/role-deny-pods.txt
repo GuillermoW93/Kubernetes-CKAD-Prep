@@ -1,0 +1,32 @@
+Create a Role in the session283884 namespace that restricts deleting pods and test access with kubectl auth can-i .
+
+k create ns session283884
+
+k create serviceaccount -n session283884 build-bot
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: session283884
+  name: no-delete-pods
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "list"]
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: deny-delete-binding
+  namespace: session283884
+subjects:
+- kind: ServiceAccount
+  name: build-bot # "name" is case sensitive
+  namespace: session283884
+roleRef:
+  kind: Role #this must be Role or ClusterRole
+  name: no-delete-pods # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+
+kubectl -n session283884 auth can-i delete pods --as=system:serviceaccount:session283884:build-bot
+no

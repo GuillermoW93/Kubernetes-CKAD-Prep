@@ -1,0 +1,19 @@
+Create a LimitRange that restricts max memory to 512Mi and max CPU to 1 for all pods.
+
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limits
+  namespace: your-namespace
+spec:
+  limits:
+  - type: Container
+    max:
+      cpu: "1"
+      memory: "512Mi"
+
+kubectl get limitrange -n default
+kubectl describe limitrange limits -n default
+
+k apply -f pod2.yaml
+Error from server (Forbidden): error when creating "pod2.yaml": pods "too-big" is forbidden: [maximum cpu usage per Container is 1, but limit is 2, maximum memory usage per Container is 512Mi, but limit is 1Gi]

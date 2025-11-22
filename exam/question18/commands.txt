@@ -1,0 +1,22 @@
+k create ns externalname-demo
+
+k create service externalname external-search -n externalname-demo --external-name www.google.com 
+service/external-search created
+
+k get svc -n externalname-demo
+NAME              TYPE           CLUSTER-IP   EXTERNAL-IP      PORT(S)   AGE
+external-search   ExternalName   <none>       www.google.com   <none>    4s
+
+k exec -it pod/dns-tool -n externalname-demo -- sh
+/ # nslookup external-search.externalname-demo.svc.cluster.local
+Server:         10.96.0.10
+Address:        10.96.0.10:53
+
+external-search.externalname-demo.svc.cluster.local     canonical name = www.google.com
+Name:   www.google.com
+Address: 2a00:1450:4001:81c::2004
+
+
+external-search.externalname-demo.svc.cluster.local     canonical name = www.google.com
+Name:   www.google.com
+Address: 142.250.186.100

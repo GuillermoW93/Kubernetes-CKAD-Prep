@@ -1,0 +1,39 @@
+Create a pod named limits-pod without specifying resource limits. Define a LimitRange to apply defaults.
+
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-resource-constraint
+spec:
+  limits:
+  - default: # this section defines default limits
+      cpu: 500m
+      memory: 128Mi
+    defaultRequest: # this section defines default requests
+      cpu: 200m
+      memory: 64Mi
+
+kubectl -n session283884 run limits-pod --image=busybox --restart=Never -- sleep 3600
+
+k describe pod -n session283884
+Containers:
+  limits-pod:
+    Container ID:  containerd://bfc66e2586e46ad182d381ba7efafbbee3910d610972546378f809e0c62cdf9d
+    Image:         busybox
+    Image ID:      docker.io/library/busybox@sha256:e3652a00a2fabd16ce889f0aa32c38eec347b997e73bd09e69c962ec7f8732ee
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      sleep
+      3600
+    State:          Running
+      Started:      Tue, 18 Nov 2025 19:46:35 +0000
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     200m
+      memory:  128Mi
+    Requests:
+      cpu:        100m
+      memory:     64Mi
+    Environment:  <none> 

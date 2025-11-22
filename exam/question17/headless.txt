@@ -1,0 +1,7 @@
+n namespace dns-lab , create a busybox:1.36 pod named dns-client that sleeps so you can run interactive commands.
+Deploy an nginx:1.25 service named web in namespace web (create the namespace if needed) and expose it with a ClusterIP service on port 80.
+From the dns-client pod, resolve:
+The short service name web (should only work with web.dns-lab.svc.cluster.local or when in the same namespace).
+The fully qualified domain name web.web.svc.cluster.local .
+The headless service DNS entry after converting the service to headless mode.
+Record the commands and resulting DNS lookups.

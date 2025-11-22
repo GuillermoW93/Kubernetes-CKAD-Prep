@@ -1,0 +1,8 @@
+Create an Ingress with TLS enabled using a secret named tls-secret .
+
+Create a namespace named ingress-tls
+Create a secret that contains a new SSL certificate, including the tls.crt and tls.key .
+Create a deployment named web that uses the image nginx:1.25 and exposes the container on port 80 .
+Create a service from the deployment, also called web , and also exposed on port 80 .
+Including the TLS secret, create an ingress resource named web-ingress that directs tls.example.com to the web service.
+Curl tls.example.com and get a 200 response.

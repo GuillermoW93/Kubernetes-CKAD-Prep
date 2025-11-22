@@ -1,0 +1,23 @@
+Label a namespace with pod-security.kubernetes.io/enforce=restricted and try to run a privileged pod.
+
+k create ns session283884
+
+kubectl label ns session283884 pod-security.kubernetes.io/enforce=restricted --overwrite
+
+k get ns --show-labels
+
+apiVersion: v1
+kind: Pod 
+metadata: 
+  name: privileged
+  namespace: session283884
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command: ["sleep", "3600"]
+    securityContext:
+      privileged: true
+
+k apply -f pod.yaml 
+Error from server (Forbidden): error when creating "pod.yaml": pods "privileged" is forbidden: violates PodSecurity "restricted:latest": privileged (container "busybox" must not set securityContext.privileged=true), allowPrivilegeEscalation != false (container "busybox" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "busybox" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "busybox" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "busybox" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")

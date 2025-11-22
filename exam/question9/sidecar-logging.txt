@@ -1,0 +1,22 @@
+cat <<EOF | kubectl -n session283884 apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dual-logger
+spec:
+  containers:
+  - name: main
+    image: busybox
+    command: ["sh", "-c", "while true; do echo main; sleep 5; done"]
+  - name: sidecar
+    image: busybox
+    command: ["sh", "-c", "while true; do echo sidecar; sleep 5; done"]
+EOF
+
+kubectl -n session283884 logs dual-logger -c sidecar
+
+Exam Desktop
+Editor
+Tab 1
++
+

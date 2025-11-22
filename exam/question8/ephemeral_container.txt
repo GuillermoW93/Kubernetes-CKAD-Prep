@@ -1,0 +1,6 @@
+Use kubectl debug to attach an ephemeral container to a running pod named nginx .
+
+Solution
+
+kubectl -n session283884 run nginx --image=nginx
+kubectl -n session283884 debug -it nginx --image=busybox --target=nginx

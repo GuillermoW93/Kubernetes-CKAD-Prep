@@ -1,0 +1,59 @@
+k create ns canary-ingress
+namespace/canary-ingress created
+
+k create deployment web -n canary-ingress --image=hashicorp/http-echo:0.2.3 --replicas=2 --port=5678
+
+k create deployment web-v2 -n canary-ingress --image=hashicorp/http-echo:0.2.3 --replicas=1 --port
+=5678
+deployment.apps/web-v2 created
+
+k expose deployment/web -n canary-ingress --port=80 --target-port=5678
+service/web exposed
+
+k expose deployment/web-v2 -n canary-ingress --port=80 --target-port=5678
+service/web-v2 exposed
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web
+  namespace: canary-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: canary.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web
+            port:
+              number: 80
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-canary
+  namespace: canary-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "10"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: canary.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-v2
+            port:
+              number: 80
+
+kubectl -n canary-ingress run curl --image=busybox:1.36 --restart=Never --command -- sh -c "while true; do wget -qO- http://canary.local && sleep 1; done"

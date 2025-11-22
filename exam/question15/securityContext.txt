@@ -1,0 +1,16 @@
+Create a pod that drops all Linux capabilities using securityContext .
+
+k create ns session283884
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: drop-cap
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    securityContext:
+      capabilities:
+        drop:
+          - ALL
