@@ -1,0 +1,5 @@
+Use Kustomize to patch a deployment image to nginx:1.23 .
+
+Create base manifests with a Deployment using the original image tag.
+Configure an overlay that changes the image tag to 1.23 .
+Apply the overlay and confirm the deployment runs the new image.

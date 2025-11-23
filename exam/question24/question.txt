@@ -1,0 +1,5 @@
+Use Kustomize to generate a ConfigMap and Secret and apply them to a pod.
+
+Scaffold a Kustomize base containing a pod definition.
+Use configMapGenerator and secretGenerator to create config data.
+Apply the overlay and verify the pod receives both the ConfigMap and Secret.

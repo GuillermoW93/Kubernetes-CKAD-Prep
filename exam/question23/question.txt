@@ -1,0 +1,1 @@
+Create two Kustomize overlays (dev and prod ) from a base deployment.
