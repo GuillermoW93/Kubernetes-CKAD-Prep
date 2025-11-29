@@ -1,0 +1,47 @@
+Add a taint to the node node01 of the cluster. Use the specification below:
+key: app_type, value: alpha and effect: NoSchedule
+
+Create a pod called alpha, image: redis with toleration to node01.
+
+To add a taint to the node node01 using the imperative command:-
+
+kubectl taint node node01 app_type=alpha:NoSchedule
+
+Verify it using the kubectl describe command:-
+
+root@controlplane:~$ kubectl describe node node01 | grep -i app_type
+
+Now, create a pod manifest file called alpha using the imperative command:-
+
+kubectl run alpha --image=redis --dry-run=client -oyaml > alpha.yaml
+
+and add rules under the spec.tolerations field as follows:
+
+tolerations:
+  - effect: NoSchedule
+    key: app_type
+    value: alpha
+
+So final manifest file to create a pod called alpha with tolerations rules as follows:-
+
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: alpha
+  name: alpha
+spec:
+  tolerations:
+  - effect: NoSchedule
+    key: app_type
+    value: alpha
+  containers:
+  - image: redis
+    name: alpha
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+
+To check the pod has been successfully deployed on the node node01, using -o wide flag:-
+
+kubectl get pods -o wide
