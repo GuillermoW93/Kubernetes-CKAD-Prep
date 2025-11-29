@@ -1,0 +1,21 @@
+Create a Cronjob that in production namespace:
+- Runs a busybox container executing date;
+- The cronjob runs every 30 minutes;
+- The cronjob must have:
+	- 2 completions;
+	- 3 retries on failure;
+	- terminate if running longer than 30 seconds;
+	- cronjob named log-cleaner and log container;
+- verify execution of cronjob.
+
+k create job --from=cronjob/log-cleaner manual-run -n production
+job.batch/manual-run created
+
+k get jobs -n production
+NAME         STATUS    COMPLETIONS   DURATION   AGE
+manual-run   Running   0/2           5s         5s
+
+k logs manual-run-rs8x4 -n production
+Sat Nov 29 12:18:21 UTC 2025
+Hello from the Kubernetes cluster
+

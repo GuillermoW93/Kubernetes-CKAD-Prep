@@ -1,0 +1,9 @@
+A web application requires a specific version of redis to be used as a cache
+
+Task:
+- Create a pod and leave it running when complete
+- the pod must run in the web namespace
+- the namespace has already been created
+- the name of the pod should be cache
+- use the Ifccncf/redis image with the 3.2 tag
+- expose port 6379

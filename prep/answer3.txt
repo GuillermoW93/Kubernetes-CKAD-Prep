@@ -1,0 +1,3 @@
+k top pod --all-namespaces --no-headers --sort-by=cpu | head -n1 | awk '{print $1}' > answer3.txt
+
+monitoring

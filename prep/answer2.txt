@@ -1,0 +1,5 @@
+k create ns web
+namespace/web created
+
+k expose pod cache -n web --port=6379 --target-port=6379
+
